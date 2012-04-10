@@ -19,7 +19,11 @@ class JSTwitter
   def dm target, message
     puts "Trying to send #{target} this direct message: \"#{message}\""
 
-    tweet "d #{target} #{message}"
+    if @client.followers.collect{|follower| follower.screen_name}.include? target
+      tweet "d #{target} #{message}"
+    else
+      puts "Sorry, you must follow #{target} first."
+    end
   end
 
   def run
