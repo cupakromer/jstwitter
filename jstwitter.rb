@@ -15,4 +15,14 @@ class JSTwitter
       @client.update message
     end
   end
+
+  def run
+    puts "Welcome to JSL Twitter Client!"
+
+    command = ""
+    while command != "q"
+      printf "enter command: "
+      command = gets.chomp
+    end
+  end
 end
