@@ -5,5 +5,6 @@ class JSTwitter
 
   def initialize
     puts "Initializing"
+    @client = JumpstartAuth.twitter
   end
 end
