@@ -46,3 +46,6 @@ class JSTwitter
     end
   end
 end
+
+jst = JSTwitter.new
+jst.run
