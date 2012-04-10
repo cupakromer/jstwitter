@@ -26,6 +26,17 @@ class JSTwitter
     end
   end
 
+  def followers_list
+    @client.followers.collect{|follower| follower.screen_name}
+  end
+
+  def spam_my_soon_to_be_ex_friends message
+    followers_list.each do |follower|
+      puts "Spamming #{follower}..."
+      dm follower, message
+    end
+  end
+
   def run
     puts "Welcome to JSL Twitter Client!"
 
@@ -40,6 +51,10 @@ class JSTwitter
         tweet message * " "
       when 'dm'
         dm message.shift, message * " "
+      when 'spam'
+        spam_my_soon_to_be_ex_friends message * " "
+      when 'fl'
+        puts followers_list
       else
         puts "Sorry, I don't know how to #{command}"
       end
