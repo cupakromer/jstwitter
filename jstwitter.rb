@@ -22,7 +22,15 @@ class JSTwitter
     command = ""
     while command != "q"
       printf "enter command: "
-      command = gets.chomp
+      command, *message = gets.chomp.split
+      case command
+      when 'q'
+        puts "Goodbye!"
+      when 't'
+        tweet message * " "
+      else
+        puts "Sorry, I don't know how to #{command}"
+      end
     end
   end
 end
