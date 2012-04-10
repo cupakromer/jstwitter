@@ -16,6 +16,12 @@ class JSTwitter
     end
   end
 
+  def dm target, message
+    puts "Trying to send #{target} this direct message: \"#{message}\""
+
+    tweet "d #{target} #{message}"
+  end
+
   def run
     puts "Welcome to JSL Twitter Client!"
 
@@ -28,6 +34,8 @@ class JSTwitter
         puts "Goodbye!"
       when 't'
         tweet message * " "
+      when 'dm'
+        dm message.shift, message * " "
       else
         puts "Sorry, I don't know how to #{command}"
       end
