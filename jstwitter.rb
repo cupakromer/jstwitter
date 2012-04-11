@@ -1,4 +1,5 @@
 require 'jumpstart_auth'
+require 'bitly'
 
 class JSTwitter
   attr_reader :client
@@ -6,6 +7,8 @@ class JSTwitter
   def initialize
     puts "Initializing"
     @client = JumpstartAuth.twitter
+    Bitly.use_api_version_3
+    @bitly = Bitly.new 'hungryacademy', 'R_430e9f62250186d2612cca76eee2dbc6'
   end
 
   def tweet message
@@ -45,6 +48,10 @@ class JSTwitter
     end
   end
 
+  def shorten url
+    @bitly.shorten(url).short_url
+  end
+
   def run
     puts "Welcome to JSL Twitter Client!"
 
@@ -62,6 +69,10 @@ class JSTwitter
         dm message.shift, message * " "
       when 'spam'
         spam_my_soon_to_be_ex_friends message * " "
+      when 's'
+        shorten message.shift
+      when 'turl'
+        tweet message[0..-2].join(" ") + " " + shorten(message.last)
       when 'fl'
         puts followers_list
       when 'elt'
