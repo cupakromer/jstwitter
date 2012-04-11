@@ -72,7 +72,7 @@ class JSTwitter
       when 's'
         shorten message.shift
       when 'turl'
-        tweet message[0..-2].join(" ") + " " + shorten(message.last)
+        tweet message.collect{|w| w =~ /^http:/ ? shorten(w) : w} * " "
       when 'fl'
         puts followers_list
       when 'elt'
