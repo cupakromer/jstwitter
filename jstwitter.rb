@@ -38,8 +38,9 @@ class JSTwitter
   end
 
   def everyones_last_tweet
-    @client.friends.each do |friend|
-      puts "#{friend.screen_name} said...\n\t#{friend.status.text}"
+    @client.friends.sort_by{|f| f.screen_name.downcase}.each do |friend|
+      puts "#{friend.screen_name} said this on #{friend.status.created_at.strftime("%A, %b, %d")}...\n"
+      puts "    #{friend.status.text}"
       puts ""   # Just print a blank line to separate people
     end
   end
