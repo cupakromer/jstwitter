@@ -48,10 +48,6 @@ class JSTwitter
     end
   end
 
-  def shorten url
-    @bitly.shorten(url).short_url
-  end
-
   def run
     puts "Welcome to JSL Twitter Client!"
 
@@ -69,8 +65,6 @@ class JSTwitter
         dm message.shift, message * " "
       when 'spam'
         spam_my_soon_to_be_ex_friends message * " "
-      when 's'
-        shorten message.shift
       when 'turl'
         tweet message.collect{|w| w =~ /^http:/ ? shorten(w) : w} * " "
       when 'fl'
@@ -90,6 +84,10 @@ private
 
   def last_tweet user
     user.status.text
+  end
+
+  def shorten url
+    @bitly.shorten(url).short_url
   end
 end
 
