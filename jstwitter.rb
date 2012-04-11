@@ -37,6 +37,13 @@ class JSTwitter
     end
   end
 
+  def everyones_last_tweet
+    @client.friends.each do |friend|
+      puts "#{friend.screen_name} said...\n\t#{friend.status.text}"
+      puts ""   # Just print a blank line to separate people
+    end
+  end
+
   def run
     puts "Welcome to JSL Twitter Client!"
 
@@ -44,6 +51,7 @@ class JSTwitter
     while command != "q"
       printf "enter command: "
       command, *message = gets.chomp.split
+
       case command
       when 'q'
         puts "Goodbye!"
@@ -55,6 +63,8 @@ class JSTwitter
         spam_my_soon_to_be_ex_friends message * " "
       when 'fl'
         puts followers_list
+      when 'elt'
+        everyones_last_tweet
       else
         puts "Sorry, I don't know how to #{command}"
       end
