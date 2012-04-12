@@ -30,8 +30,6 @@ class JSTwitter
   end
 
   def dm target, message
-    puts "Trying to send #{target} this direct message: \"#{message}\""
-
     if followers_list.include? target
       tweet "d #{target} #{message}"
     else
@@ -44,14 +42,22 @@ class JSTwitter
   end
 
   def spam_my_soon_to_be_ex_friends message
-    followers_list.each do |follower|
+    followers = followers_list
+
+    puts "You have no followers. That's sad." if followers.empty?
+
+    followers.each do |follower|
       puts "Spamming #{follower}..."
       dm follower, message
     end
   end
 
   def everyones_last_tweet
-    @client.friends.sort_by{|f| f.screen_name.downcase}.each do |friend|
+    friends = @client.friends.sort_by{|f| f.screen_name.downcase}
+
+    puts "You have no friends. You should fix that." if friends.empty?
+
+    friends.each do |friend|
       puts "#{friend.screen_name} said this on #{friend.last_tweet_date}...\n"
       puts "    \"#{friend.last_tweet}\""
       puts ""   # Just print a blank line to separate people
