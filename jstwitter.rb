@@ -1,6 +1,16 @@
 require 'jumpstart_auth'
 require 'bitly'
 
+class Twitter::User
+  def last_tweet_date
+    status.created_at.strftime "%A, %b, %d"
+  end
+
+  def last_tweet
+    status.text
+  end
+end
+
 class JSTwitter
   attr_reader :client
 
@@ -42,8 +52,8 @@ class JSTwitter
 
   def everyones_last_tweet
     @client.friends.sort_by{|f| f.screen_name.downcase}.each do |friend|
-      puts "#{friend.screen_name} said this on #{last_tweet_date friend}...\n"
-      puts "    \"#{last_tweet friend}\""
+      puts "#{friend.screen_name} said this on #{friend.last_tweet_date}...\n"
+      puts "    \"#{friend.last_tweet}\""
       puts ""   # Just print a blank line to separate people
     end
   end
@@ -78,14 +88,6 @@ class JSTwitter
   end
 
 private
-  def last_tweet_date user
-    user.status.created_at.strftime "%A, %b, %d"
-  end
-
-  def last_tweet user
-    user.status.text
-  end
-
   def shorten url
     @bitly.shorten(url).short_url
   end
