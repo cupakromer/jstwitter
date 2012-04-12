@@ -67,22 +67,15 @@ class JSTwitter
       command, *message = gets.chomp.split
 
       case command
-      when 'q'
-        puts "Goodbye!"
-      when 't'
-        tweet message * " "
-      when 'dm'
-        dm message.shift, message * " "
-      when 'spam'
-        spam_my_soon_to_be_ex_friends message * " "
+      when 'q'    ; puts "Goodbye!"
+      when 't'    ; tweet message * " "
+      when 'dm'   ; dm message.shift, message * " "
+      when 'spam' ; spam_my_soon_to_be_ex_friends message * " "
+      when 'fl'   ; puts followers_list
+      when 'elt'  ; everyones_last_tweet
       when 'turl'
         tweet message.collect{|w| w =~ /^http:/ ? shorten(w) : w} * " "
-      when 'fl'
-        puts followers_list
-      when 'elt'
-        everyones_last_tweet
-      else
-        puts "Sorry, I don't know how to #{command}"
+      else puts "Sorry, I don't know how to #{command}"
       end
     end
   end
