@@ -25,7 +25,7 @@ class JSTwitter
     if message.length > 140
       puts "Warning: Tweet is over 140 characters. Tweet rejected."
     else
-      @client.update message
+      client.update message
     end
   end
 
@@ -38,7 +38,7 @@ class JSTwitter
   end
 
   def followers_list
-    @client.followers.collect{|follower| follower.screen_name}
+    client.followers.collect{|follower| follower.screen_name}
   end
 
   def spam_my_soon_to_be_ex_friends message
@@ -52,8 +52,12 @@ class JSTwitter
     end
   end
 
+  def friends_list
+    client.friends.sort_by{|f| f.screen_name.downcase}
+  end
+
   def everyones_last_tweet
-    friends = @client.friends.sort_by{|f| f.screen_name.downcase}
+    friends = friends_list
 
     puts "You have no friends. You should fix that." if friends.empty?
 
