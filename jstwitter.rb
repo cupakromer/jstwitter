@@ -12,8 +12,6 @@ class Twitter::User
 end
 
 class JSTwitter
-  attr_reader :client
-
   def initialize
     puts "Initializing"
     @client = JumpstartAuth.twitter
@@ -103,7 +101,7 @@ private
     words.collect{|w| shorten_if_url w} 
   end
 
-  attr_reader :bitly
+  attr_reader :client, :bitly
 end
 
 jst = JSTwitter.new
