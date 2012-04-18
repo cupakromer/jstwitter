@@ -91,12 +91,12 @@ class JSTwitter
   end
 
 private
-  def shorten url
+  def shorten_url url
     @bitly.shorten(url).short_url
   end
 
   def shorten_if_url string
-    string =~ /^http:/ ? shorten(string) : string
+    string =~ /^http:/ ? shorten_url(string) : string
   end
 
   def shorten_all_urls words
