@@ -81,10 +81,10 @@ class JSTwitter
       when 't'    ; tweet message * " "
       when 'dm'   ; dm message.shift, message * " "
       when 'spam' ; spam_my_soon_to_be_ex_friends message * " "
-      when 'fl'   ; puts followers_list
+      when 'fol'  ; puts followers_list
+      when 'frl'  ; puts friends_list
       when 'elt'  ; everyones_last_tweet
-      when 'turl'
-        tweet message.collect{|w| w =~ /^http:/ ? shorten(w) : w} * " "
+      when 'turl' ; tweet shorten_all_urls(message) * " "
       else puts "Sorry, I don't know how to #{command}"
       end
     end
@@ -94,6 +94,16 @@ private
   def shorten url
     @bitly.shorten(url).short_url
   end
+
+  def shorten_if_url string
+    string =~ /^http:/ ? shorten(string) : string
+  end
+
+  def shorten_all_urls words
+    words.collect{|w| shorten_if_url w} 
+  end
+
+  attr_reader :bitly
 end
 
 jst = JSTwitter.new
