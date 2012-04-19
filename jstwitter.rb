@@ -80,7 +80,7 @@ class JSTwitter
       when 'dm'   ; dm message.shift, message * " "
       when 'spam' ; spam_my_soon_to_be_ex_friends message * " "
       when 'fol'  ; puts followers_screen_names_from_server
-      when 'frl'  ; puts friends_list_from_server
+      when 'frl'  ; puts friends_list_from_server.collect{|f| f.screen_name}
       when 'elt'  ; everyones_last_tweet
       when 'turl' ; tweet shorten_all_urls(message) * " "
       else puts "Sorry, I don't know how to #{command}"
