@@ -19,6 +19,14 @@ class JSTwitter
     @bitly = Bitly.new 'hungryacademy', 'R_430e9f62250186d2612cca76eee2dbc6'
   end
 
+  def followers_list
+    client.followers.collect{|follower| follower.screen_name}
+  end
+
+  def friends_list
+    client.friends.sort_by{|f| f.screen_name.downcase}
+  end
+
   def tweet message
     if message.length > 140
       puts "Warning: Tweet is over 140 characters. Tweet rejected."
@@ -35,10 +43,6 @@ class JSTwitter
     end
   end
 
-  def followers_list
-    client.followers.collect{|follower| follower.screen_name}
-  end
-
   def spam_my_soon_to_be_ex_friends message
     followers = followers_list
 
@@ -48,10 +52,6 @@ class JSTwitter
       puts "Spamming #{follower}..."
       dm follower, message
     end
-  end
-
-  def friends_list
-    client.friends.sort_by{|f| f.screen_name.downcase}
   end
 
   def everyones_last_tweet
